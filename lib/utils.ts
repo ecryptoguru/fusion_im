@@ -6,6 +6,17 @@ import { twMerge } from "tailwind-merge";
 
 import { aspectRatioOptions } from "@/constants";
 
+type FormUrlQueryParams = {
+  searchParams: URLSearchParams;
+  key: string;
+  value: string | number | boolean;
+};
+
+type RemoveUrlQueryParams = {
+  searchParams: URLSearchParams;
+  keysToRemove: string[];
+};
+
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
@@ -58,19 +69,24 @@ export const formUrlQuery = ({
   key,
   value,
 }: FormUrlQueryParams) => {
-  const params = { ...qs.parse(searchParams.toString()), [key]: value };
+  // Convert searchParams to string
+  const searchParamsString = searchParams.toString();
+  const params = { ...qs.parse(searchParamsString), [key]: value };
 
   return `${window.location.pathname}?${qs.stringify(params, {
     skipNulls: true,
   })}`;
 };
 
+
 // REMOVE KEY FROM QUERY
 export function removeKeysFromQuery({
   searchParams,
   keysToRemove,
 }: RemoveUrlQueryParams) {
-  const currentUrl = qs.parse(searchParams);
+  // Convert searchParams to string
+  const searchParamsString = searchParams.toString();
+  const currentUrl = qs.parse(searchParamsString);
 
   keysToRemove.forEach((key) => {
     delete currentUrl[key];
@@ -83,6 +99,7 @@ export function removeKeysFromQuery({
 
   return `${window.location.pathname}?${qs.stringify(currentUrl)}`;
 }
+
 
 // DEBOUNCE
 export const debounce = (func: (...args: any[]) => void, delay: number) => {

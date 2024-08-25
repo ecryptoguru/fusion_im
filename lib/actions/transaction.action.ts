@@ -7,6 +7,22 @@ import { connectToDatabase } from '../database/mongoose';
 import Transaction from '../database/models/transaction.model';
 import { updateCredits } from './user.actions';
 
+// Type definition for checkoutCredits function parameters
+type CheckoutTransactionParams = {
+  amount: number; // Amount in dollars
+  plan: string;   // Name of the plan or product
+  credits: number; // Number of credits being purchased
+  buyerId: string; // ID of the buyer
+};
+
+// Type definition for createTransaction function parameters
+type CreateTransactionParams = {
+  amount: number; // Amount in dollars
+  plan: string;   // Name of the plan or product
+  credits: number; // Number of credits purchased
+  buyerId: string; // ID of the buyer
+};
+
 export async function checkoutCredits(transaction: CheckoutTransactionParams) {
   const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
 

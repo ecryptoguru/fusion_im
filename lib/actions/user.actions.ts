@@ -6,6 +6,25 @@ import User from "../database/models/user.model";
 import { connectToDatabase } from "../database/mongoose";
 import { handleError } from "../utils";
 
+// Type definition for createUser function parameters
+type CreateUserParams = {
+  clerkId: string; // Unique identifier for the user
+  firstName: string; // First name of the user
+  lastName: string; // Last name of the user
+  email: string; // Email address of the user
+  creditBalance?: number; // Optional field for initial credit balance
+  [key: string]: any; // Allow additional fields if necessary
+};
+
+// Type definition for updateUser function parameters
+type UpdateUserParams = {
+  firstName?: string; // Optional update for first name
+  lastName?: string; // Optional update for last name
+  email?: string; // Optional update for email
+  creditBalance?: number; // Optional update for credit balance
+  [key: string]: any; // Allow additional fields if necessary
+};
+
 // CREATE
 export async function createUser(user: CreateUserParams) {
   try {

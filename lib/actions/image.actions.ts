@@ -14,7 +14,32 @@ const populateUser = (query: any) => query.populate({
   model: User,
   select: '_id firstName lastName clerkId'
 })
+// Type definition for addImage function parameters
+type AddImageParams = {
+  image: {
+    title: string;
+    description: string;
+    url: string;
+    publicId: string;
+    [key: string]: any; // If there are additional fields that can be added to the image object
+  };
+  userId: string;
+  path: string;
+};
 
+// Type definition for updateImage function parameters
+type UpdateImageParams = {
+  image: {
+    _id: string;
+    title?: string;
+    description?: string;
+    url?: string;
+    publicId?: string;
+    [key: string]: any; // If there are additional fields that can be updated in the image object
+  };
+  userId: string;
+  path: string;
+};
 // ADD IMAGE
 export async function addImage({ image, userId, path }: AddImageParams) {
   try {
