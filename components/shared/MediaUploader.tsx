@@ -53,7 +53,7 @@ const MediaUploader = ({
 
   return (
     <CldUploadWidget
-      uploadPreset="fusion_im"
+      uploadPreset="fusion-im"
       options={{
         multiple: false,
         resourceType: "image",
